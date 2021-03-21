@@ -19,32 +19,32 @@ class XmlParser
 {
 
     /**
-     * @var $xmlstring string //XML-Data as a String
+     * @var string $xmlstring //XML-Data as a String
      */
     protected $xmlstring;
 
     /**
-     * @var $namespace string //Namespace of XML-Data
+     * @var string $namespace //Namespace of XML-Data
      */
     protected $namespace;
 
     /**
-     * @var $metadataDir string // Path to Metadata
+     * @var string $metadataDir // Path to Metadata
      */
     protected $metadataDir;
 
     /**
-     * @var $classes string // Namespace to Classes
+     * @var string $classes // Namespace to Classes
      */
     protected $classes;
 
     /**
-     * @var $serializer Serializer
+     * @var Serializer $serializer
      */
     protected $serializer;
 
     /**
-     * @var $debug boolean
+     * @var bool $debug
      */
     protected $debug;
 
@@ -52,8 +52,11 @@ class XmlParser
     /**
      * XmlToObject constructor.
      *
-     * @param $xmlstring
-     * @param $namespace
+     * @param string    $metadataDir
+     * @param string    $classNamespace
+     * @param bool|null $debug
+     *
+     * @return self
      */
     public function __construct(string $metadataDir, string $classNamespace, ?bool $debug = false)
     {
@@ -62,15 +65,12 @@ class XmlParser
         $this->debug       = $debug;
 
         $this->getSerializer();
-
-        return $this;
     }
 
     /**
-     * @return \JMS\Serializer\Serializer
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @return Serializer
      */
-    protected function getSerializer()
+    protected function getSerializer(): Serializer
     {
         $serializerBuilder = SerializerBuilder::create();
         $serializerBuilder->addMetadataDir($this->metadataDir, $this->classes);
@@ -88,9 +88,12 @@ class XmlParser
     }
 
     /**
+     * @param string $xmlstring
+     * @param string $namespace
+     *
      * @return mixed
      */
-    public function toObject(string $xmlstring = "", string $namespace = "")
+    public function toObject(string $xmlstring = "", string $namespace = ""): mixed
     {
         $this->xmlstring = $xmlstring;
         $this->namespace = $namespace;
@@ -99,7 +102,7 @@ class XmlParser
         return $this->serializer->deserialize($this->xmlstring, $this->namespace, 'xml');
     }
 
-    public function toXml($object)
+    public function toXml(mixed $object): string
     {
         return $this->serializer->serialize($object, 'xml');
     }

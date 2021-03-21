@@ -2,7 +2,7 @@
   "name": "media-store-net/xml-parser",
   "description": "XmlParser is a package parse xml to a object and object to xml, this package depends on XSD2PHP",
   "require": {
-    "php": "^7.2",
+    "php": ">=7.2",
     "goetas-webservices/xsd2php-runtime": "^0.2.2"
   },
   "license": "MIT",
@@ -24,6 +24,7 @@
   },
   "minimum-stability": "dev",
   "require-dev": {
-    "phpunit/phpunit": "9.5.x-dev"
+    "phpunit/phpunit": "9.5.x-dev",
+    "phpstan/phpstan": "0.12.x-dev"
   }
 }
