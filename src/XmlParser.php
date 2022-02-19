@@ -56,7 +56,7 @@ class XmlParser
      * @param string    $classNamespace
      * @param bool|null $debug
      *
-     * @return self
+     * @return void
      */
     public function __construct(string $metadataDir, string $classNamespace, ?bool $debug = false)
     {
@@ -93,7 +93,7 @@ class XmlParser
      *
      * @return mixed
      */
-    public function toObject(string $xmlstring = "", string $namespace = ""): mixed
+    public function toObject(string $xmlstring = "", string $namespace = "")
     {
         $this->xmlstring = $xmlstring;
         $this->namespace = $namespace;
@@ -102,7 +102,7 @@ class XmlParser
         return $this->serializer->deserialize($this->xmlstring, $this->namespace, 'xml');
     }
 
-    public function toXml(mixed $object): string
+    public function toXml(object $object): string
     {
         return $this->serializer->serialize($object, 'xml');
     }
